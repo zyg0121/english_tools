@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+    <title>单词表</title>
+    <script>
+        var onResize = function () {
+            $("body").css("margin-top", $(".navbar").height() + 10);
+        };
+        $(window).resize(onResize);
+        $(function () {
+            onResize();
+        });
+    </script>
+    <style>
+        .wordlistview {
+            height: auto;
+            border: 1px solid #a9cdd7;
+            padding: 0;
+        }
+        .wordlistview li {
+            line-height: 30px;
+            text-indent: 10px;
+            border-bottom: 1px solid #a9cdd7;
+            list-style: none;
+        }
+        .wordlistview li:last-child {
+            border-bottom: medium none;
+        }
+        .wordlistview li:nth-child(2n){
+            background-color: #c6eef9;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">英语单词学习助手</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">英语单词学习助手</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/index">首页</a></li>
+                <li class="active"><a href="/wordlist">单词列表</a></li>
+                <li><a href="/wordsearch">单词搜索</a></li>
+                <li><a href="/paratranslate">段落翻译</a></li>
+                <li><a href="/wordtest">单词测试</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div id="letter to page" style="height: auto;border: 1px solid #a9cdd7;
+    padding: 10px 10px 10px 10px;margin-bottom: 10px;">
+        快速跳转：
+        <a href="?page=1">A </a><a href="?page=12">B </a><a href="?page=24">C </a><a href="?page=51">D </a>
+        <a href="?page=56">E </a><a href="?page=69">F </a><a href="?page=82">G </a><a href="?page=89">H </a>
+        <a href="?page=98">I </a><a href="?page=109">J </a><a href="?page=111">K </a><a href="?page=112">L </a>
+        <a href="?page=121">M </a><a href="?page=133">N </a><a href="?page=139">O </a><a href="?page=146">P </a>
+        <a href="?page=167">Q </a><a href="?page=168">R </a><a href="?page=182">S </a><a href="?page=201">T </a>
+        <a href="?page=210">U </a><a href="?page=212">V </a><a href="?page=215">W </a><a href="?page=219">X Y Z </a>
+    </div>
+    <ul class="wordlistview">
+    {% for word in words %}
+        {# 使用每本书的word.id作为获取详情的查询条件，生成链接 #}
+        <li><a href="{% url 'wordinfo'  word.word_id %}" target="_blank">{{ word.word }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div id="pages" class="text-center">
+    <ul class="pagination">
+        <li class="step-links">
+            {% if words.has_previous %}
+                <a class='active' href="?page={{ words.previous_page_number }}">上一页</a>
+            {% endif %}
+
+            <span class="current">
+                    第 {{ words.number }} 页，共 {{ words.paginator.num_pages }}页</span>
+            {% if words.has_next %}
+                <a class='active' href="?page={{ words.next_page_number }}">下一页</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+
+<script>
+
+</script>
+
+</body>
+</html>

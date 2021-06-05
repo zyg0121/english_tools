@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>测试用</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        var onResize = function () {
+            $("body").css("margin-top", $(".navbar").height() + 10);
+        };
+        $(window).resize(onResize);
+        $(function () {
+            onResize();
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">英语单词学习助手</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">英语单词学习助手</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/index">首页</a></li>
+                <li><a href="/wordlist">单词列表</a></li>
+                <li><a href="/wordsearch">单词搜索</a></li>
+                <li><a href="/paratranslate">段落翻译</a></li>
+                <li><a href="/wordtest">单词测试</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="text-center">欢迎使用英语单词学习助手</h1>
+        <p class="text-center">本英语单词学习助手单词范围主要为CET-4和CET-6的常考词汇，欢迎大家使用！</p>
+        <p class="text-center">
+            <a class="btn btn-primary btn-lg" href="/wordlist" role="button">单词列表</a>
+            <a class="btn btn-primary btn-lg" href="/wordsearch" role="button">单词搜索</a>
+            <a class="btn btn-primary btn-lg" href="/paratranslate" role="button">段落翻译</a>
+            <a class="btn btn-primary btn-lg" href="/wordtest" role="button">单词测试</a>
+        </p>
+    </div>
+
+    <hr class="featurette-divider">
+    <footer class="text-center">
+        <p>© 2021 ZhouYiguo · sduwh · <a href="/admin" target="_blank">后台管理</a> · <a href="https://www.hiyiguo.cn" target="_blank">个人博客</a></p>
+    </footer>
+
+</div>
+
+
+
+</body>
+</html>

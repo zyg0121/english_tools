@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+    <title>单词测试</title>
+    <script>
+        var onResize = function () {
+            $("body").css("margin-top", $(".navbar").height() + 10);
+        };
+        $(window).resize(onResize);
+        $(function () {
+            onResize();
+        });
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">英语单词学习助手</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">英语单词学习助手</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/index">首页</a></li>
+                <li><a href="/wordlist">单词列表</a></li>
+                <li><a href="/wordsearch">单词搜索</a></li>
+                <li><a href="/paratranslate">段落翻译</a></li>
+                <li class="active"><a href="/paratranslate">单词测试</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="form-group">
+        <form id="getWordInfo" method='post' class="form-inline">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="level">请选择需要测试的单词难度：</label>
+                <select class="form-control" name="level_choose">
+                    <option value="level_1">等级1</option>
+                    <option value="level_2">等级2</option>
+                    <option value="level_3">等级3</option>
+                    <option value="level_4">等级4</option>
+                    <option value="level_5">等级5</option>
+                </select>
+            </div>
+
+            <button type="button" id="getInfo" class="btn btn-default">生成测试题目</button>
+
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table" id="wordInfo">
+            <thead>
+            <tr>
+                <th>单词词性</th>
+                <th>单词翻译</th>
+                <th>测试区域</th>
+                <th>查看结果</th>
+                <th>正确结果</th>
+            </tr>
+            </thead>
+            <tbody id="wordInfoShow">
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+</body>
+
+<script>
+    $('#getInfo').click(function () {
+        var data = $('#getWordInfo').serialize();
+        $.ajax({
+            type:'post',
+            url:'/word_test_getinfo/',
+            data:data,
+            success: function (result) {
+                console.log(result);
+                //console.log(typeof(result));
+                var retWord = result['words'];
+                var str = "";
+                for(var i in retWord) {
+                    //console.log(i);
+                    //console.log(retWord[i]);
+                    str += "<tr>" +
+                        "<td>" + retWord[i][1] + "</td>" +
+                        "<td>" + retWord[i][2] + "</td>" +
+                        "<td>" + "<div id =" + "\"inputdiv" + i +"\">" + "<input id= " + "\"input" + i +"\"" + "placeholder=\'单词名称\' class=\"form-control\"> </div>" + "</td>" +
+                        "<td>" + "<button type=\"button\" id=inputbutton" + i + " class=\"btn btn-default\">显示</button>" + "</td>" +
+                        "<td id=td_" + i +" hidden>"+ retWord[i][0] + "</td>"
+                }
+                $('#wordInfoShow').html(str);
+                for(var j in retWord) {
+                    (function (i) {
+                        $('#input'+i).bind('input propertychange',function () {
+                            var inputret = $('#input'+i).val();
+                            console.log(inputret);
+                            console.log(typeof(inputret))
+                            if(inputret != retWord[i][0]) {
+                                console.log('false');
+                                $('#inputdiv'+i).attr('class','has-error');
+                            } else {
+                                console.log('true');
+                                $('#inputdiv'+i).attr('class','has-success');
+                            }
+                        });
+                    })(j);
+                }
+
+                for(var j in retWord) {
+                    (function (i) {
+                        var isHide = false;
+                        $('#inputbutton'+i).click(function () {
+                            //$('#wordInfo tr td')
+                            if(isHide) {
+                                $('#td_'+i).hide();
+                                console.log('false');
+                                $('#inputbutton'+i).text('显示');
+                            } else {
+                                $('#td_'+i).show();
+                                console.log('true');
+                                $('#inputbutton'+i).text('隐藏');
+                            }
+                            isHide = !isHide;
+                        });
+                    })(j);
+                }
+            }
+        })
+    })
+
+</script>
+
+
+</html>
