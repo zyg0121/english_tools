@@ -80,23 +80,31 @@
         <li><a href="{% url 'wordinfo'  word.word_id %}" target="_blank">{{ word.word }}</a></li>
     {% endfor %}
     </ul>
+
+    <div id="pages" class="text-center">
+        <ul class="pagination">
+            <li class="step-links">
+                {% if words.has_previous %}
+                    <a class='active' href="?page={{ words.previous_page_number }}">上一页</a>
+                {% endif %}
+
+                <span class="current">
+                        第 {{ words.number }} 页，共 {{ words.paginator.num_pages }}页</span>
+                {% if words.has_next %}
+                    <a class='active' href="?page={{ words.next_page_number }}">下一页</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+
+    <hr class="featurette-divider">
+    <footer class="text-center">
+        <p>© 2021 ZhouYiguo · sduwh · <a href="/admin" target="_blank">后台管理</a> · <a href="https://www.hiyiguo.cn" target="_blank">个人博客</a></p>
+    </footer>
+
 </div>
 
-<div id="pages" class="text-center">
-    <ul class="pagination">
-        <li class="step-links">
-            {% if words.has_previous %}
-                <a class='active' href="?page={{ words.previous_page_number }}">上一页</a>
-            {% endif %}
 
-            <span class="current">
-                    第 {{ words.number }} 页，共 {{ words.paginator.num_pages }}页</span>
-            {% if words.has_next %}
-                <a class='active' href="?page={{ words.next_page_number }}">下一页</a>
-            {% endif %}
-        </li>
-    </ul>
-</div>
 
 <script>
 
