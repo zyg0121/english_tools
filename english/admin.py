@@ -7,7 +7,7 @@ from .models import Instance
 
 # Register your models here.
 
-class InstanceInline(admin.StackedInline):
+class InstanceInline(admin.TabularInline):
     model = Instance
 
 
@@ -16,7 +16,12 @@ class WordAdmin(admin.ModelAdmin):
     search_fields = ['word']
     ordering = ('word',)
     list_filter = ('levels',)
-    # inlines = [InstanceInline, ]
+    #def sentence_id(self, obj):
+    #    return [bt.sentence_id for bt in obj.sentences.all()]
+    #fieldsets = [(None,{'fields': ['word', 'level']}),
+    #             (u'相关例句', {'fields': ['sentence']})]
+    #filter_horizontal = ("sentences",)
+    #inlines = (InstanceInline,)
 
 
 class SentenceAdmin(admin.ModelAdmin):
@@ -24,15 +29,15 @@ class SentenceAdmin(admin.ModelAdmin):
     search_fields = ['sentence']
     ordering = ('sentence',)
 
-class TranslationAdmin(admin.ModelAdmin):
-    list_display = ("translation",'property')
-    search_fields = ['translation']
 
+class TranslationAdmin(admin.ModelAdmin):
+    list_display = ("translation", 'property')
+    search_fields = ['translation']
 
 
 admin.site.register(Word, WordAdmin)
 admin.site.register(Sentence, SentenceAdmin)
-admin.site.register(Translation,TranslationAdmin)
+admin.site.register(Translation, TranslationAdmin)
 
 admin.site.site_title = "英语学习助手系统后台"
 admin.site.site_header = "英语学习助手管理系统"

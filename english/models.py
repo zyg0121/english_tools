@@ -9,12 +9,12 @@ from django.db import models
 
 
 class Instance(models.Model):
-    word = models.ForeignKey('Word', models.DO_NOTHING)
-    sentence = models.ForeignKey('Sentence', models.DO_NOTHING)
+    word = models.ForeignKey('Word', on_delete=models.CASCADE)
+    sentence = models.ForeignKey('Sentence', on_delete=models.CASCADE)
 
     class Meta:
-        managed = False
-        db_table = 'instance'
+        # managed = False
+        db_table = 'Instance'
 
 
 class Sentence(models.Model):
@@ -69,6 +69,11 @@ class Word(models.Model):
     word_id = models.AutoField(primary_key=True)
     word = models.CharField(unique=True, max_length=40, verbose_name="单词名称")
     levels = models.CharField(max_length=10, blank=True, null=True, choices=WORD_LEVEL_CHOICE, verbose_name="单词等级")
+
+    sentences = models.ManyToManyField(Sentence, through="Instance")
+
+    def __str__(self):
+        return self.word
 
     class Meta:
         verbose_name = u'单词'

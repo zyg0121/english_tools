@@ -62,6 +62,9 @@
         <ul class="nav nav-tabs" role="tablist" style="margin: 10px 10px 10px 10px;">
             <li role="presentation" class="active"><a href="#word_tran" aria-controls="word_tran" role="tab" data-toggle="tab">单词翻译</a></li>
             <li role="presentation"><a href="#word_sent" aria-controls="word_sent" role="tab" data-toggle="tab">单词例句</a></li>
+            {% if word_id == 1 or word_id == 3101 %}
+                <li role="presentation"><a href="#word_img" aria-controls="word_img" role="tab" data-toggle="tab">单词图片</a></li>
+            {% endif %}
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -79,6 +82,17 @@
                     {% endfor %}
                 </ol>
             </div>
+            {% if word_id == 1  %}
+            <div role="tabpanel" class="tab-pane" id="word_img">
+                <img src="https://gss0.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/w=580/sign=25e6c58bd509b3deebbfe460fcbe6cd3/5a26b7003af33a879af862f9c25c10385243b55f.jpg">
+            </div>
+            {% endif %}
+            {% if word_id == 3101  %}
+            <div role="tabpanel" class="tab-pane" id="word_img">
+                <img src="https://pic2.zhimg.com/v2-554a5f0d79cba3cd0f0295e7e4edcea1_1440w.jpg?source=172ae18b">
+            </div>
+            {% endif %}
+
         </div>
     <hr class="featurette-divider">
     <footer class="text-center">
