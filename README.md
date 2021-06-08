@@ -27,6 +27,7 @@ DATABASES = {
 5. 分别执行`python manage.py makemigrations`和`python manage.py migrate`来生成django的Models。
 6. 再执行`python manage.py createsuperuser`根据命令行提示设置相关管理员帐户。
 7. 最后执行`python manage.py runserver`即可在`http://localhost:8000`打开网站了。（其他运行方法自行到django官网查阅）
+8. 如果要在`DEBUG = False`下运行，请按照SimpleUI的操作https://simpleui.72wo.com/docs/simpleui/QUICK.html#%E5%85%8B%E9%9A%86%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6 复制静态文件
 
 # 系统界面
 
@@ -112,3 +113,5 @@ appid和key修改成你自己的（我的不能保证能用）。
 [![2s9XSU.md.png](https://z3.ax1x.com/2021/06/08/2s9XSU.md.png)](https://imgtu.com/i/2s9XSU)
 [![2s9jlF.md.png](https://z3.ax1x.com/2021/06/08/2s9jlF.md.png)](https://imgtu.com/i/2s9jlF)
 [![2s9LWT.md.png](https://z3.ax1x.com/2021/06/08/2s9LWT.md.png)](https://imgtu.com/i/2s9LWT)
+
+[reference]: https://simpleui.72wo.com/docs/simpleui/QUICK.html#%E5%85%8B%E9%9A%86%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6)复制静态文件
